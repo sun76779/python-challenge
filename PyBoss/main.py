@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May 23 14:28:23 2018
-
-@author: shangw
-"""
 
 import os
 import csv
 
 
-file ='C:/Users/shangw/Desktop/21/DS/DataAnalysis Bootcamp/02-Homework/03- Python/PyBoss/raw_data/employee_data1.csv'
+#file ='C:/Users/shangw/Desktop/21/DS/DataAnalysis Bootcamp/02-Homework/03- Python/PyBoss/raw_data/employee_data1.csv'
+
+os.chdir("/Users/shangw/Desktop/USCDATA/python-challenge/PyBoss/raw_data")
+
+csvpath = os.path.join('..','raw_data','employee_data1.csv')
+
+
 
 #import state abbrev dictionary
 us_state_abbrev = {
@@ -66,7 +66,7 @@ us_state_abbrev = {
 }
 
 
-# Lists to store data
+# Create Blank Lists to store data
 Emp_ID = []
 first_name = []
 last_name = []
@@ -75,8 +75,8 @@ SSN = []
 State = [] 
 
 
-
-with open(file, newline="") as csvfile:
+# open and read raw file 
+with open(csvpath, newline="") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
 
 
@@ -84,7 +84,7 @@ with open(file, newline="") as csvfile:
     csv_header = next(csvfile)
     
 
-
+    #loop through all rows to convert data to new list
     for row in csvreader:
         
         # Add ID
@@ -111,11 +111,11 @@ with open(file, newline="") as csvfile:
         State.append(us_state_abbrev[row[4]])
         
       
-# Zip lists together
+# Zip new lists together
 cleaned_csv = zip(Emp_ID, first_name, last_name, DOB, SSN, State)
 
 # Set variable for output file
-output_file = os.path.join("pyBoss")
+output_file = os.path.join("..","output","PyBoss_Output_1.csv")
 
 #  Open the output file
 with open(output_file, "w", newline="") as datafile:
